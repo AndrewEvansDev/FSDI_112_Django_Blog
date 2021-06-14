@@ -3,12 +3,16 @@
 {% block title %} Home {% endblock title%}
 
 {% block content %}
-
+<div class="outter-list-wrap">
+    <ul class="post-list">
+        <div class="inner-ul-wrap">
     {% for post in object_list %}
-    <div class="post-entry">
-        <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-        <p>{{ post.body }}</p>
-    </div>
+        
+            <li class="post-li"><a class="post-link" href="{% url 'post_detail' post.id %}">{{ post.title }}</a> <span>{{ post.date }}  ||  by: <em>{{ post.author }}</em></span> </li>
+        
     {% endfor %}
 
+        </div>
+    </ul>
+</div>
 {% endblock content %}

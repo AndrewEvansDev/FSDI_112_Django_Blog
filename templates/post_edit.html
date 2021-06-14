@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1>Edit Post</h1>
+{% if user.is_authenticated %}
+<h1 class="post-edit-h1">Edit Post</h1>
 
 <form action="" method="post">
 {% csrf_token %}
 {{ form.as_p }}
-<input type="submit" value="Upate">
+<input class="btn btn-success" type="submit" value="Update">
 </form>
+{% else %}
+<h1 class="post=edit-h1">Access denied!</h1>
+{% endif %}
 {% endblock content %}

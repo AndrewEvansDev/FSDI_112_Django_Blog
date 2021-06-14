@@ -9,33 +9,56 @@
         <title>{% block title %}Blog{% endblock title %}</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
     </head>
 <body>
 
     <header>
-        <div class="nav-left">
-            <h1>
-                <a href="{% url 'home' %}">Django Blog</a>
-            </h1>
-
-        </div>
-        <div class="nav-right">
-            <a href="{% url 'post_new' %}">+ New Blog Post</a>
-        </div>
-
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">Blog</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'post_new' %}">New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <span class="navbar-text">
+                    {% if user.is_authenticated %}
+                    Welcome, {{ user.username }}
+                    {% else %}
+                    Django blog without many features
+                    {% endif %}
+                </span>
+                </div>
+            </div>
+            </nav>
     </header>
-    {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}</p>
-    <p><a href="{% url 'logout' %}">Log Out</a></p>
-    {% else %}
-    <p>You aren't logged in!</p>
-    <p><a href="{% url 'login' %}">Log In</a></p>
-    {% endif %}
-
-    <p>
+    <div class="container-fluid">
+    
         {% block content %}
         {% endblock content %}
-    </p>
+    </div>
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

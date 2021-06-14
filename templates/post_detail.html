@@ -3,10 +3,16 @@
 {% block content %}
 
 <div class="post-entry">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.body }}</p>
-    <a href="{% url 'post_edit' post.pk %}">+ Edit Blog Post</a>
-    <a href="{% url 'post_delete' post.pk %}">+ Delete Blog Post</a>
+    <article class='article-body'>
+        <div class="post-detail-header"><h2>{{ post.title }}</h2><span>{{ post.date }}</span></div>
+        <p>{{ post.body }}</p>
+        <span class="detail-author"><em>{{ post.author }}</em></span>
+    </article>
+    <div class="edit-view-links">
+        <a href="{% url 'home' %}">Back</a>
+        <a href="{% url 'post_edit' post.pk %}">Edit</a>
+        <a href="{% url 'post_delete' post.pk %}">Delete</a>
+    </div>
 </div>
 
 {% endblock content %}
